@@ -12,10 +12,12 @@
 
 #include "ms.h"
 
-void	ft_parse2_while(t_char2d *temp, int len, int i, char **parsed)
+void	ft_parse2_while(t_char2d *temp, int len, char **parsed)
 {
 	t_parsed	*new;
+	int			i;
 
+	i = 0;
 	while (len > i)
 	{
 		temp = chararr();
@@ -31,30 +33,42 @@ void	ft_parse2_while(t_char2d *temp, int len, int i, char **parsed)
 			}
 			temp->append(temp, ft_strdup(parsed[i++]));
 		}
-		if (!isspcl2(parsed[i]))
-			fit_new(new);
 		ft_lstadd_back(&g_stuff->parsed, ft_lstnew(new));
 		i++;
 	}
 }
 
-int	ft_parse2(char *arg, int i, int len)
+void	fit_in_q(void)
+{
+	t_parsed *temp;
+	t_list		*parsed;
+
+	parsed = g_stuff->parsed;
+
+	while (parsed)
+	{
+		temp = (t_parsed *)(parsed->content);
+		if (temp->args && temp->args->lst)
+		{
+			fix_quote(temp->args->lst);
+		}
+		parsed = parsed->next;
+	}
+}
+
+int	ft_parse2(char **parsed)
 {	
 	t_char2d	*temp;
-	char		**parsed;
-	char		*old;
+	int			len;
+	int			i;
 
-	temp = NULL;
-	jump_spaces(&arg);
-	arg = removespace(arg, 0, 0);
-	old = arg;
-	parsed = specialsplit(old, ' ');
-	free(old);
-	if (!checkorderof(parsed))
-		return (0);
+	len = 0;
 	while (parsed[len])
+	{
 		len++;
-	ft_parse2_while(temp, len, i, parsed);
+	}
+	ft_parse2_while(temp, len, parsed);
+	fit_in_q();
 	i = 0;
 	while (parsed[i])
 	{
@@ -76,6 +90,8 @@ t_parsed	*str_init(t_char2d *args)
 	rtn->type = -1;
 	rtn->fd[0] = -1;
 	rtn->fd[1] = -1;
+	rtn->pip[0] = 0;
+	rtn->pip[1] = 1;
 	rtn->input = 0;
 	rtn->output = 0;
 	rtn->dlm = 0;

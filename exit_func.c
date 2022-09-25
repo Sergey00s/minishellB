@@ -36,7 +36,7 @@ void	error_exit(int code)
 {
 	if (code == -1)
 	{
-		ft_putstr_fd("Quote Error", 2);
+		ft_putstr_fd("Quote Error\n", 2);
 		exit(0);
 	}
 }

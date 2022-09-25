@@ -26,7 +26,7 @@ void	delim_ch(char **buffer, char *key, t_redir *tmp, char *line)
 		{
 			tmpbuf = *buffer;
 			line = readline("> ");
-			if (!ft_strncmp(line, key, ft_strlen(key)))
+			if (!strcmp_abs(line, key))
 				break ;
 			line = ft_strjoin(line, "\n");
 			*buffer = ft_strjoin(*buffer, line);
@@ -43,10 +43,9 @@ void	delim_ch(char **buffer, char *key, t_redir *tmp, char *line)
 	}
 }
 
-void	delim(t_parsed *parsed, char *line, char *key)
+void	delim(t_parsed *parsed, int *pipes,char *line, char *key)
 {
 	char	*buffer;
-	int		pipes[2];
 	t_redir	*tmp;
 
 	buffer = 0;
@@ -58,15 +57,6 @@ void	delim(t_parsed *parsed, char *line, char *key)
 	buffer = ft_strdup(line);
 	free(line);
 	line = "";
-	if (!ft_strncmp(buffer, key, ft_strlen(key)))
-	{
-		pipe(pipes);
-		if (parsed->bin != 1)
-			dup2(pipes[0], 0);
-		close(pipes[1]);
-		free(buffer);
-		return ;
-	}
 	delim_ch(&buffer, key, tmp, line);
 	delim_wr(pipes, buffer, parsed);
 }
@@ -95,18 +85,18 @@ void	do_next(t_list *parsed, t_parsed *temp)
 int	getin(int ac)
 {
 	char	*c;
-	char	*pro;
+	char	**preparsed;
 
 	(void)ac;
-	pro = prompt();
-	c = readline(pro);
-	free(pro);
+	c = readline("MiniBeachShell$> ");
 	if (c && *c)
-		doit2(c);
+	{
+		preparsed = pre_parse(c);
+		doit2(preparsed);
+		add_history(c);
+	}
 	if (!c)
 		return (0);
-	if ((*c != ' ' || ft_strlen(c) > 1) && *c != '\n')
-		add_history(c);
 	free(c);
 	return (1);
 }

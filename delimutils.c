@@ -14,14 +14,9 @@
 
 void	delim_wr(int *pipes, char *buffer, t_parsed *parsed)
 {
-	if (parsed->dlm == 2)
-	{
-		pipe(pipes);
 		write(pipes[1], buffer, ft_strlen(buffer));
-		if (parsed->bin != 1)
 			dup2(pipes[0], 0);
 		close(pipes[1]);
-	}
 }
 
 void	tmp_next(t_redir **tmp, char **key)

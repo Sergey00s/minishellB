@@ -51,31 +51,3 @@ void	movethem(char **arg, int i, int code)
 	}	
 }
 
-char	*removespace(char *arg, int i, int x)
-{
-	while (arg[i])
-	{
-		fix_pre_parse(isspclpar(arg[i], arg[i + 1]), &arg, i + 1);
-		fix_post_parse(isspclpar2(arg, i), &arg, i - 1);
-		if (arg[i] == ' ')
-			cut_spaces(&arg, i + 1);
-		if (arg[i] == '"')
-		{
-			i++;
-			while (arg[i] && arg[i] != '"')
-				i++;
-		}
-		if (arg[i] == '\'')
-		{
-			i++;
-			while (arg[i] && arg[i] != '\'')
-				i++;
-		}
-		i += (arg[i] != 0);
-	}
-	if (!pre_control(arg, ft_strlen(arg)))
-		error_exit(-1);
-	fit_quto(&arg, x);
-	fit_env_var(&arg);
-	return (arg);
-}

@@ -49,7 +49,7 @@ void	cut_spaces(char **arg, int i)
 	int	j;
 
 	j = i;
-	while ((*arg)[j] && (*arg)[j] == ' ')
+	while ((*arg)[j] && ft_isspace((*arg)[j]))
 		j++;
 	while ((*arg)[j])
 	{
@@ -62,17 +62,14 @@ void	cut_spaces(char **arg, int i)
 
 void	go_for2(char *arg, int *i, int *q, int c)
 {
-	if (arg[*i] == c)
+	if (arg && arg[*i] == c)
 	{
 		(*q)++;
 		(*i)++;
 		while (arg[*i] && arg[*i] != c)
 			(*i)++;
 		if (arg[*i] == c)
-		{
 			(*q)++;
-			(*i)++;
-		}
 	}
 }
 
@@ -82,13 +79,14 @@ int	pre_control(char *arg, int len)
 	int	dq;
 	int	q;
 
-	i = -1;
+	i = 0;
 	dq = 0;
 	q = 0;
-	while (++i < len)
+	while (i < len)
 	{
 		go_for2(arg, &i, &dq, '"');
 		go_for2(arg, &i, &q, 39);
+		i++;
 	}
 	if (dq % 2 != 0 || q % 2 != 0)
 		return (0);

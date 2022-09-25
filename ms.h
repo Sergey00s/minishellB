@@ -71,6 +71,7 @@ typedef struct s_parsed
 	int			type;
 	int			wr;
 	int			bin;
+	int			pip[2];
 }				t_parsed;
 
 typedef struct s_vars
@@ -87,6 +88,13 @@ typedef struct s_vars
 
 extern t_stuff	*g_stuff;
 
+void		fix_quote(char **lst);
+char		**ft_mysplirt(char const *s, char c);
+int			is_token(char *token);
+int			strcmp_abs(const char *s1, const char *s2);
+int			iterate_till(char *str, int start, int c);
+int			ft_isspace(int c);
+char		**pre_parse(char *str);
 int			checkorderof(char **parsed);
 int			checkdquote(t_parsed *parsed);
 int			checkredirs(t_parsed *parsed);
@@ -98,7 +106,7 @@ int			checkpipes(t_parsed *parsed);
 int			checkquote(t_parsed *parsed);
 int			check_build(char **args, t_parsed *parsed);
 int			checkit(char *str);
-int			ft_parse2(char *arg, int i, int len);
+int			ft_parse2(char **arg);
 int			ft_isnot(char c);
 int			ft_echo(char **args, t_parsed *parsed);
 int			ft_myexport(char *value);
@@ -145,7 +153,7 @@ char		*ft_putit(const char *s1, char c);
 void		tmp_next(t_redir **tmp, char **key);
 void		delim_wr(int *pipes, char *buffer, t_parsed *parsed);
 void		init_fd(t_parsed *parsed);
-void		delim(t_parsed *parsed, char *line, char *key);
+void		delim(t_parsed *parsed, int *pipes, char *line, char *key);
 void		free_2d(char **env);
 void		fit_new(t_parsed *new);
 void		error_exit(int code);
@@ -167,7 +175,7 @@ void		ft_toenv2(char *str);
 void		cut_spaces(char **arg, int i);
 void		sig_handler(int signum);
 void		init_fd(t_parsed *parsed);
-void		doit2(char *a);
+void		doit2(char **a);
 void		free_parsed(t_parsed *parsed);
 void		free_stuff(void);
 void		do_next(t_list *parsed, t_parsed *temp);
@@ -186,7 +194,6 @@ void		fit_env_var(char **arg);
 void		fix_post_parse(int code, char **arg, int pos);
 void		jump_till_not(char **str, char *set);
 void		jump_till(char **str);
-void		ft_parse2_while(t_char2d *temp, int len, int i, char **parsed);
 void		put_them2(int start, int end, char **arg, int i);
 void		fit_redir(t_redir *redir);
 void		ft_fixit(t_redir *redir);

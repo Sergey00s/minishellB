@@ -88,10 +88,8 @@ char	*check_dlm(t_parsed *parsed)
 		if (!ft_strncmp(redirs->type, "<<", 2))
 		{
 			ret = redirs->file;
-			parsed->dlm = 2;
-		}
-		else if (!ft_strncmp(redirs->type, "<", 1))
 			parsed->dlm = 1;
+		}
 		redirs = redirs->next;
 	}
 	return (ret);

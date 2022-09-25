@@ -12,17 +12,6 @@
 
 #include "ms.h"
 
-char	*prompt(void)
-{
-	char	*str;
-	char	*ret;
-
-	str = getcwd(0, 0);
-	ret = ft_strjoin(str, " +++ mimiShell -> ");
-	free(str);
-	return (ret);
-}
-
 void	sig_handler(int signum)
 {	
 	(void)signum;
