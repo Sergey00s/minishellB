@@ -123,26 +123,28 @@ void    fix_quote(char **lst)
     while (lst[i])
     {
         j = 0;
-        while (lst[i][j])
+        while (lst[i][j] && is_token(lst[i]))
         {
             if (lst[i][j] == '"')
             {   
                 ft_memmove(&lst[i][j], &lst[i][j + 1], ft_strlen(&lst[i][j]));
                 j += findindex(&lst[i][j], '"');
                 ft_memmove(&lst[i][j], &lst[i][j + 1], ft_strlen(&lst[i][j]));
+                continue;
             }
             if (lst[i][j] == 39)
             {   
                 ft_memmove(&lst[i][j], &lst[i][j + 1], ft_strlen(&lst[i][j]));
                 j += findindex(&lst[i][j], 39);
                 ft_memmove(&lst[i][j], &lst[i][j + 1], ft_strlen(&lst[i][j]));
+                continue;
             }
             j++;
         }
         i++;
     }
 }
-//hell"world"some
+
 char **pre_parse(char *str)
 {
     char *arg;
@@ -154,6 +156,6 @@ char **pre_parse(char *str)
     if(!check_tokens(pre_parsed))
         //freelst
         exit(0);
-    //fix_quote(pre_parsed);
+    fix_quote(pre_parsed);
     return pre_parsed;
 }

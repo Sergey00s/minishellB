@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iyarikan <iyarikan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ialgac <ialgac@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 19:40:43 by ialgac            #+#    #+#             */
-/*   Updated: 2022/09/23 18:25:50 by iyarikan         ###   ########.fr       */
+/*   Updated: 2022/09/26 20:05:38 by ialgac           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,12 @@ void	delim_ch(char **buffer, char *key, t_redir *tmp, char *line)
 	}
 }
 
-void	delim(t_parsed *parsed, int *pipes,char *line, char *key)
+void	delim(t_parsed *parsed, char *line, char *key)
 {
 	char	*buffer;
 	t_redir	*tmp;
-
+	int		ownpipe[2];
+	
 	buffer = 0;
 	key = 0;
 	tmp = parsed->redirs;
@@ -58,7 +59,7 @@ void	delim(t_parsed *parsed, int *pipes,char *line, char *key)
 	free(line);
 	line = "";
 	delim_ch(&buffer, key, tmp, line);
-	delim_wr(pipes, buffer, parsed);
+	delim_wr(ownpipe, buffer, parsed);
 }
 
 void	do_next(t_list *parsed, t_parsed *temp)
@@ -88,7 +89,7 @@ int	getin(int ac)
 	char	**preparsed;
 
 	(void)ac;
-	c = readline("MiniBeachShell$> ");
+	c = readline("MiniBeachShell $> ");
 	if (c && *c)
 	{
 		preparsed = pre_parse(c);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirutils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iyarikan <iyarikan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ialgac <ialgac@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 19:41:15 by ialgac            #+#    #+#             */
-/*   Updated: 2022/09/23 17:17:49 by iyarikan         ###   ########.fr       */
+/*   Updated: 2022/09/26 20:36:25 by ialgac           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ char	*check_dlm(t_parsed *parsed)
 
 	ret = 0;
 	redirs = parsed->redirs;
+	parsed->dlm = 0;
 	while (redirs)
 	{
 		if (!ft_strncmp(redirs->type, "<<", 2))

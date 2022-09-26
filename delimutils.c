@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   delimutils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iyarikan <iyarikan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ialgac <ialgac@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 19:39:11 by ialgac            #+#    #+#             */
-/*   Updated: 2022/09/23 18:22:47 by iyarikan         ###   ########.fr       */
+/*   Updated: 2022/09/26 20:40:59 by ialgac           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 void	delim_wr(int *pipes, char *buffer, t_parsed *parsed)
 {
+		pipe(pipes);
 		write(pipes[1], buffer, ft_strlen(buffer));
-			dup2(pipes[0], 0);
+		dup2(pipes[0], 0);
 		close(pipes[1]);
 }
 

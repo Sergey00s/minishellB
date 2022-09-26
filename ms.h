@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iyarikan <iyarikan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ialgac <ialgac@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 19:45:16 by ialgac            #+#    #+#             */
-/*   Updated: 2022/09/23 17:30:29 by iyarikan         ###   ########.fr       */
+/*   Updated: 2022/09/26 20:02:56 by ialgac           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ char		*ft_putit(const char *s1, char c);
 void		tmp_next(t_redir **tmp, char **key);
 void		delim_wr(int *pipes, char *buffer, t_parsed *parsed);
 void		init_fd(t_parsed *parsed);
-void		delim(t_parsed *parsed, int *pipes, char *line, char *key);
+void		delim(t_parsed *parsed, char *line, char *key);
 void		free_2d(char **env);
 void		fit_new(t_parsed *new);
 void		error_exit(int code);
