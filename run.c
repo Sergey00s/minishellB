@@ -6,7 +6,7 @@
 /*   By: ialgac <ialgac@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 17:22:58 by ialgac            #+#    #+#             */
-/*   Updated: 2022/09/26 20:45:03 by ialgac           ###   ########.fr       */
+/*   Updated: 2022/09/26 21:36:17 by ialgac           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ void	run3(t_list *parsed)
 	t_parsed	*temp;
 
 	temp = (t_parsed *)parsed->content;
-	
 	pipe(temp->pip);
-	if (!temp->input && !temp->dlm)
+	if (!temp->input)
 		temp->fd[0] = temp->pip[0];
 	if (!temp->output)
 		temp->fd[1] = temp->pip[1];
+	
 	id = fork();
 	if (id == 0)
 	{
@@ -50,6 +50,7 @@ void	run3(t_list *parsed)
 		{
 			do_next(parsed, temp);
 		}
+		exit(1);
 	}
 	close(temp->pip[1]);
 	close(temp->fd[1]);

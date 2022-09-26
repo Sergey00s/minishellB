@@ -84,17 +84,18 @@ int check_tokens(char **lst)
     {
         if (is_token_char(lst[i][0]) && !is_token(lst[i]))
         {
-            //free lst
+            printf("1 %s -> %s \n", lst[i], lst[i + 1]);
             return (0);
         }
         if (is_token(lst[i]) && !lst[i + 1])
         {
-            //free lst
+            printf("2 %s -> %s \n", lst[i], lst[i + 1]);
             return (0);
         }
         temp = is_token(lst[i]);
         if (temp != 2 && temp && is_token(lst[i + 1]))
         {
+            printf("3 %s -> %s \n", lst[i], lst[i + 1]);
             //freelst
             return (0);
         }
@@ -151,6 +152,8 @@ char **pre_parse(char *str)
     char **pre_parsed;
 
     arg = removespace(str, 0, 0);
+    printf("arg %s \n", arg);
+    exit(1);
     pre_parsed = specialsplit(arg, ' ');
     free(arg);
     if(!check_tokens(pre_parsed))
