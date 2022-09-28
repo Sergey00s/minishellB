@@ -6,7 +6,7 @@
 /*   By: ialgac <ialgac@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 19:45:16 by ialgac            #+#    #+#             */
-/*   Updated: 2022/09/26 20:02:56 by ialgac           ###   ########.fr       */
+/*   Updated: 2022/09/28 01:58:00 by ialgac           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct s_vars
 
 extern t_stuff	*g_stuff;
 
+int			is_token_char(int c);
 void		fix_quote(char **lst);
 char		**ft_mysplirt(char const *s, char c);
 int			is_token(char *token);
