@@ -6,7 +6,7 @@
 /*   By: ialgac <ialgac@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 19:39:44 by ialgac            #+#    #+#             */
-/*   Updated: 2022/09/26 18:01:54 by ialgac           ###   ########.fr       */
+/*   Updated: 2022/09/28 04:38:46 by ialgac           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,12 @@ void	eccho(int fd, char **args)
 int	ft_echo(char **args, t_parsed *parsed)
 {
 	if (parsed->dlm)
-		//delim(parsed, NULL, NULL);
+		delim(parsed, NULL, NULL);
 	if (parsed->output)
 		eccho(parsed->fd[1], args);
 	else
 		eccho(1, args);
+	ft_myexport(ft_itoa(0));
 	return (0);
 }
 
@@ -86,4 +87,5 @@ void	ft_env2(void)
 		}
 		i++;
 	}
+	ft_myexport(ft_itoa(0));
 }

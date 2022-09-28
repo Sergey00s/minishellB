@@ -6,7 +6,7 @@
 /*   By: ialgac <ialgac@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 19:45:16 by ialgac            #+#    #+#             */
-/*   Updated: 2022/09/28 01:58:00 by ialgac           ###   ########.fr       */
+/*   Updated: 2022/09/28 05:46:23 by ialgac           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct s_vars
 
 extern t_stuff	*g_stuff;
 
+void		print_error(char *shell, char *cmd, char*str);
 int			is_token_char(int c);
 void		fix_quote(char **lst);
 char		**ft_mysplirt(char const *s, char c);
@@ -144,7 +145,7 @@ char		**putmenv(char **env);
 char		*get_after(char *str, char c);
 char		*get_till(char *str, char c);
 char		*prompt(void);
-char		*removespace(char *arg, int i, int j);
+char		*removespace(char *arg, int i);
 char		*ft_getenvparam(char *var);
 char		*makeit(char *var, char *value);
 char		*check_dlm(t_parsed *parsed);
@@ -157,7 +158,7 @@ void		init_fd(t_parsed *parsed);
 void		delim(t_parsed *parsed, char *line, char *key);
 void		free_2d(char **env);
 void		fit_new(t_parsed *new);
-void		error_exit(int code);
+void		error_exit(int code, char *cmd, char *msg);
 void		ft_env2(void);
 void		ft_redir_addback(t_redir **lst, t_redir *new);
 void		str_print(t_parsed *self);

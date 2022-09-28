@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unsets.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ialgac <ialgac@student.42istanbul.com.tr>  +#+  +:+       +#+        */
+/*   By: ialgac <ialgac@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 19:42:22 by ialgac            #+#    #+#             */
-/*   Updated: 2022/09/22 19:42:23 by ialgac           ###   ########.fr       */
+/*   Updated: 2022/09/28 06:06:42 by ialgac           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	unset_this(char *arg)
 void	ft_unset(char **args)
 {
 	int	i;
+	char *a;
 
 	i = 1;
 	while (args[i])
@@ -71,8 +72,11 @@ void	ft_unset(char **args)
 	{
 		if (args[i])
 		{
-			unset_this(ft_strdup(args[i]));
+			a = ft_strdup(args[i]);
+			unset_this(a);
+			free(a);
 		}
 		i++;
 	}
+	ft_myexport(ft_itoa(0));
 }

@@ -6,7 +6,7 @@
 /*   By: ialgac <ialgac@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 19:39:27 by ialgac            #+#    #+#             */
-/*   Updated: 2022/09/26 20:13:57 by ialgac           ###   ########.fr       */
+/*   Updated: 2022/09/28 06:01:57 by ialgac           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,11 @@ int	gosingle(t_parsed *parsed)
 	{
 		return (0);
 	}
-	
 	if (check_build(parsed->args->lst, parsed))
+	{
+		free_stuff();
 		return (1);
+	}
 	return (0);
 }
 

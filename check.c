@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iyarikan <iyarikan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ialgac <ialgac@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 19:38:53 by ialgac            #+#    #+#             */
-/*   Updated: 2022/09/23 16:27:47 by iyarikan         ###   ########.fr       */
+/*   Updated: 2022/09/28 04:08:00 by ialgac           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,10 @@ int	checkacces(char *temp)
 	{
 		if (access(temp, X_OK) != -1)
 		{
-			ft_myexport(ft_itoa(0));
 			return (1);
 		}
-		ft_putendl_fd("Not Executable!!", 2);
-		ft_myexport(ft_itoa(126));
 		return (0);
 	}
-	ft_myexport(ft_itoa(127));
 	return (0);
 }
 

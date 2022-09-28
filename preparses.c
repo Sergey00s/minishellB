@@ -1,5 +1,20 @@
 #include "ms.h"
 
+
+void ff_re(char **arg)
+{
+    int i;
+
+    i = 0;
+    while (arg[i])
+    {
+        free(arg[i]);
+        i++;
+    }
+}
+
+
+
 int is_token(char *token)
 {
     char    *tokens;
@@ -15,15 +30,16 @@ int is_token(char *token)
     {
         if (!strcmp_abs(token, tokenlist[i]))
         {
-            //free tokenlist;
+            ff_re(tokenlist);
+            free(tokenlist);
             if (i == 0)
                 return 2;
             return 1;
         }
         i++;
     }
-    i = 0;
-    //free tokenlist 
+    ff_re(tokenlist);
+    free(tokenlist);
     return 0;
 }
 
@@ -112,13 +128,77 @@ void redo_first(char **arg)
     //free(temp);
 }
 
-char	*removespace(char *str, int i, int x)
+int find_next_one(char *arg, int i)
+{
+    i++;
+    if (ft_isdigit(arg[i]))
+    {
+        return i;
+    }
+    while (arg[i] && (ft_isalpha(arg[i]) || ft_isdigit(arg[i]) || arg[i] == '_'))
+        i++;
+    return i;
+}
+
+
+void fix_env_var(char **arg)
+{
+    int i;
+    int last;
+
+    i = 0;
+    last = 0;
+    while (arg[0][i])
+    {
+        if (arg[0][i] == '$')
+        {
+            last = find_next_one(arg[0], i);
+            ft_memmove(&arg[0][i], &arg[0][last], ft_strlen(&arg[0][last]) + 1);
+            continue;
+        }
+        if (arg[0][i] == '"')
+        {
+            i++;
+            while (arg[0][i] && arg[0][i] != '"')
+            {
+                if (arg[0][i] == '$')
+                {
+                    last = find_next_one(arg[0], i);
+                    ft_memmove(&arg[0][i], &arg[0][last], ft_strlen(&arg[0][last]) + 1);
+                    continue;
+                }
+                i++;
+            }
+        }
+        if (arg[0][i] == 39)
+        {
+            i++;
+            while (arg[0][i] && arg[0][i] != 39)
+                i++;
+        }
+        i++;
+    }
+    
+}
+
+static void error_on(void)
+{
+    print_error("minishell", " ", "quote error");
+    ft_myexport(ft_itoa(258));
+}
+
+char	*removespace(char *str, int i)
 {
     char    *arg;
 
     arg = ft_strdup(str);
 	if (!pre_control(arg, ft_strlen(arg)))
-		error_exit(-1);
+    {
+		error_on();
+        return 0;
+    }
+	fit_env_var(&arg);
+    fix_env_var(&arg);
 	while (arg[i])
 	{   
 		//fix_pre_parse(isspclpar(arg[i], arg[i + 1]), &arg, i + 1);
@@ -142,7 +222,6 @@ char	*removespace(char *str, int i, int x)
 	}
     redo_first(&arg);
 	//fit_quto(&arg, x);
-	fit_env_var(&arg);
 	return (arg);
 }
 
@@ -165,18 +244,15 @@ int check_tokens(char **lst)
     {
         if (is_token_char(lst[i][0]) && !is_token(lst[i]))
         {
-            printf("1 %s -> %s \n", lst[i], lst[i + 1]);
             return (0);
         }
         if (is_token(lst[i]) && !lst[i + 1])
         {
-            printf("2 %s -> %s \n", lst[i], lst[i + 1]);
             return (0);
         }
         temp = is_token(lst[i]);
         if (temp != 2 && temp && is_token(lst[i + 1]))
         {
-            printf("3 %s -> %s \n", lst[i], lst[i + 1]);
             //freelst
             return (0);
         }
@@ -205,7 +281,7 @@ void    fix_quote(char **lst)
     while (lst[i])
     {
         j = 0;
-        while (lst[i][j] && is_token(lst[i]))
+        while (lst[i][j] && !is_token(lst[i]))
         {
             if (lst[i][j] == '"')
             {   
@@ -232,12 +308,21 @@ char **pre_parse(char *str)
     char *arg;
     char **pre_parsed;
 
-    arg = removespace(str, 0, 0);
+    arg = removespace(str, 0);
+    if (!arg)
+    {
+        return 0;
+    }
+    
     pre_parsed = specialsplit(arg, ' ');
     free(arg);
     if(!check_tokens(pre_parsed))
-        //freelst
-        exit(0);
-    fix_quote(pre_parsed);
+    {
+        //free lst
+        print_error("minishell", " ", "syntax error2!");
+        ft_myexport(ft_itoa(258));
+        return 0;
+    }
+    //fix_quote(pre_parsed);
     return pre_parsed;
 }

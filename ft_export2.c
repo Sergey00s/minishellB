@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iyarikan <iyarikan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ialgac <ialgac@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 19:40:34 by ialgac            #+#    #+#             */
-/*   Updated: 2022/09/23 17:16:13 by iyarikan         ###   ########.fr       */
+/*   Updated: 2022/09/28 04:36:38 by ialgac           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	ft_export(char **args)
 		else
 			ft_toenv2(args[i]);
 	}
+	ft_myexport(ft_itoa(0));
 }
 
 void	ft_checklast(char **rtn, char *var, char *str)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structutils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iyarikan <iyarikan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ialgac <ialgac@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 19:41:51 by ialgac            #+#    #+#             */
-/*   Updated: 2022/09/23 17:39:33 by iyarikan         ###   ########.fr       */
+/*   Updated: 2022/09/28 05:43:48 by ialgac           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,9 @@ int	ft_parse2(char **parsed)
 	int			i;
 
 	len = 0;
+	temp = NULL;
 	while (parsed[len])
-	{
 		len++;
-	}
 	ft_parse2_while(temp, len, parsed);
 	fit_in_q();
 	i = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   b_in.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iyarikan <iyarikan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ialgac <ialgac@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 06:09:20 by ialgac            #+#    #+#             */
-/*   Updated: 2022/09/23 10:23:09 by iyarikan         ###   ########.fr       */
+/*   Updated: 2022/09/28 05:42:32 by ialgac           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,31 @@ int	ft_change_dir(char *path)
 {
 	char	*home;
 
+	home = NULL;
 	if (!path || (path && *path == 0) || !ft_strncmp(path, "~", 1))
 	{
 		home = ft_findhome ();
 		if (access(home, F_OK) != -1)
 			chdir(home);
 		else
-			ft_putstr_fd("No such a file or dir\n", 2);
+		{
+			print_error("minishell", home, "No such a file or directory");
+			ft_myexport(ft_itoa(1));
+			return 0;
+		}
 	}
 	else
 	{
 		if (access(path, F_OK) != -1)
 			chdir(path);
 		else
-			ft_putstr_fd("No such a file or dir\n", 2);
+		{
+			print_error("minishell", home, "No such a file or directory");
+			ft_myexport(ft_itoa(1));
+			return 0;
+		}
 	}
+	ft_myexport(ft_itoa(0));
 	return (1);
 }
 

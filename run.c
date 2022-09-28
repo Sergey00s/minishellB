@@ -6,7 +6,7 @@
 /*   By: ialgac <ialgac@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 17:22:58 by ialgac            #+#    #+#             */
-/*   Updated: 2022/09/26 21:36:17 by ialgac           ###   ########.fr       */
+/*   Updated: 2022/09/28 04:27:51 by ialgac           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,21 +36,15 @@ void	run3(t_list *parsed)
 		temp->fd[0] = temp->pip[0];
 	if (!temp->output)
 		temp->fd[1] = temp->pip[1];
-	
 	id = fork();
 	if (id == 0)
 	{
 		if (temp->input == -2)
-		{
-			ft_putendl_fd("No such file or dir!", 2);
-			exit(1);
-		}
+			error_exit(1, " ", "No such a file or directory!");
 		run3_if(temp, parsed);
 		if (temp->args && temp->args->lst && temp->args->lst[0])
-		{
 			do_next(parsed, temp);
-		}
-		exit(1);
+		exit(0);
 	}
 	close(temp->pip[1]);
 	close(temp->fd[1]);

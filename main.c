@@ -6,7 +6,7 @@
 /*   By: ialgac <ialgac@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 19:40:43 by ialgac            #+#    #+#             */
-/*   Updated: 2022/09/26 21:03:53 by ialgac           ###   ########.fr       */
+/*   Updated: 2022/09/28 06:00:10 by ialgac           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,12 @@ void	delim(t_parsed *parsed, char *line, char *key)
 	tmp = parsed->redirs;
 	tmp_next(&tmp, &key);
 	line = readline("> ");
+	if (!strcmp_abs(line, key))
+	{
+		free(line);
+		delim_wr(ownpipe, "", parsed);
+		return;
+	}
 	line = ft_strjoin(line, "\n");
 	buffer = ft_strdup(line);
 	free(line);
@@ -74,13 +80,23 @@ void	do_next(t_list *parsed, t_parsed *temp)
 	{
 		if (execve(way, temp->args->lst, g_stuff->env) == -1)
 		{
-			ft_putnbr_fd(path, 2);
-			ft_putstr_fd(" %d not x able\n", 2);
-			ft_myexport(ft_itoa(127));
+			error_exit(127, temp->args->lst[0], "Command not found!");
 		}
 	}
-	ft_myexport(ft_itoa(127));
-	exit(1);
+	exit(0);
+}
+
+void iss_to_s(char *str)
+{
+	int i;
+	
+	i = 0;
+	while (str[i])
+	{
+		if (ft_isspace(str[i]))
+			str[i] = ' ';
+		i++;
+	}
 }
 
 int	getin(int ac)
@@ -92,7 +108,10 @@ int	getin(int ac)
 	c = readline("MiniBeachShell $> ");
 	if (c && *c)
 	{
+		iss_to_s(c);
 		preparsed = pre_parse(c);
+		if (!preparsed)
+			return 1;
 		doit2(preparsed);
 		add_history(c);
 	}
@@ -110,6 +129,7 @@ int	main(int ac, char **av, char **menv)
 	g_stuff->checker = 0;
 	g_stuff->code = 0;
 	fit_ex();
+	ft_myexport(ft_itoa(0));
 	go(ac, av);
 	return (0);
 }
